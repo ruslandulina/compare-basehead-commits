@@ -1,0 +1,33 @@
+name: Pull Request
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+on:
+  pull_request:
+    paths-ignore:
+      - '.github/workflows/**'
+      - '!.github/workflows/PullRequest.yml'
+
+permissions:
+  actions: write
+  checks: write
+  pull-requests: write
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [
+          { name: "GitHub MacOS", labels: [macos-latest] },
+          { name: "Github Windows", labels: [windows-latest] },
+          { name: "Github Ubuntu", labels: [ubuntu-latest] },
+        ]
+    runs-on: ${{ matrix.runner.labels }}
+    name: Run action on ${{ matrix.runner.name }}
+    timeout-minutes: 60
+    steps:
+      - name: Get Pull Request changed files
+        id: files
+        uses: ruslandulina/compare-basehead-commits@v1
