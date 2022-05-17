@@ -1,0 +1,49 @@
+name: Pull Request
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+on:
+  pull_request:
+    paths-ignore:
+      - '.github/workflows/**'
+      - '!.github/workflows/PullRequest.yml'
+
+permissions:
+  actions: write
+  checks: write
+  pull-requests: write
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [
+          { name: "GitHub MacOS", labels: [macos-latest] },
+          { name: "Github Windows", labels: [windows-latest] },
+          { name: "Github Ubuntu", labels: [ubuntu-latest] },
+        ]
+    runs-on: ${{ matrix.runner.labels }}
+    name: Run action on ${{ matrix.runner.name }}
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build action
+        run: npm run build
+
+      - name: Get Pull Request changed files pr version
+        uses: ./
+
+      - name: Get Pull Request changed files latest release
+        uses: ruslandulina/compare-basehead-commits@v1
