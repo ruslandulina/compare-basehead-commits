@@ -1,0 +1,31 @@
+name: Get Pull Request Files
+description: Get all added/modified/removed/renamed files in a pull request or push's commits.
+author: Ruslan Dulina
+branding:
+  icon: file-plus
+  color: green
+runs:
+  using: node16
+  main: dist/index.js
+inputs:
+  token:
+    description: 'GitHub token for GitHub API requests.'
+    required: true
+    default: ${{ github.token }}
+  format:
+    description: >
+      Format of the steps output context.
+      Can be 'space-delimited', 'csv', or 'json'.
+    required: true
+    default: space-delimited
+outputs:
+  all:
+    description: 'All changed files.'
+  added:
+    description: 'Added files.'
+  modified:
+    description: 'Modified files.'
+  removed:
+    description: 'Removed files.'
+  renamed:
+    description: 'Renamed files.'
