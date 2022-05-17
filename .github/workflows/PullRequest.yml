@@ -30,4 +30,4 @@ jobs:
     steps:
       - name: Get Pull Request changed files
         id: files
-        uses: ruslandulina/compare-basehead-commits@main
+        uses: ruslandulina/compare-basehead-commits@v1
