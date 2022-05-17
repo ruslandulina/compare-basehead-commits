@@ -39,7 +39,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install dependencies
+      - name: Build action
         run: npm run build
 
       - name: Get Pull Request changed files pr version
