@@ -46,4 +46,4 @@ jobs:
         uses: ./
 
       - name: Get Pull Request changed files latest release
-        uses: ruslandulina/compare-basehead-commits@v1
+        uses: ruslandulina/compare-basehead-commits@v1.1
