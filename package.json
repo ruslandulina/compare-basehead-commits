@@ -11,7 +11,7 @@
     "build": "ncc build -o dist src/main.ts --license licenses.txt"
   },
   "engines": {
-    "node": "^14 || ^16"
+    "node": "^14 || ^16 || ^17"
   },
   "dependencies": {
     "@actions/core": "^1.10.0",
