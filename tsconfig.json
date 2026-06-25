@@ -3,7 +3,8 @@
     "module": "esnext",
     "target": "es2019",
     "sourceMap": true,
-    "moduleResolution": "node"
+    "rootDir": "./src",
+    "moduleResolution": "bundler"
   },
   "exclude": [
     "node_modules", "dist"
