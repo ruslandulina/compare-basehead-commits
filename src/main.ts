@@ -52,7 +52,7 @@ async function run(): Promise<void> {
         removed = [] as string[],
         renamed = [] as string[];
 
-    for (const file of files) {
+    for (const file of files ?? []) {
         const { filename, status } = file;
 
         if (format === Format.spaceDelimited && filename.includes(' ')) {
@@ -82,11 +82,11 @@ async function run(): Promise<void> {
         }
     }
 
-    let allFormatted: string,
-        addedFormatted: string,
-        modifiedFormatted: string,
-        removedFormatted: string,
-        renamedFormatted: string;
+    let allFormatted = '',
+        addedFormatted = '',
+        modifiedFormatted = '',
+        removedFormatted = '',
+        renamedFormatted = '';
 
     switch (format) {
         case Format.spaceDelimited:
